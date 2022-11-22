@@ -1,14 +1,15 @@
 #include "start.h"
 #include "continuation.h"
+#include "gameplay.h"
 #include <iostream>
 #include <windows.h>
 #include <cstdlib>
 
 using namespace std;
 
-roz r;
+roz s;
 cards c;
-
+//gameplay g;
 void roz::start()
 {	
 	system("cls");
@@ -22,10 +23,20 @@ void roz::start()
 	{
 	case 1:
 		system("cls");
+		c.create_cards();
 		c.table();
 		break;
+	case 2:
+		system("cls");
+		break;
+	case 3:
+		s.autor();
 	}
+
 }
+
+
+
 void roz::autor() {
 	cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;;
 	cout << "Program napisany przez Jana Czernieckiego\nWszelkie prawa zastrze¿one 2022." << endl;
@@ -47,7 +58,7 @@ void roz :: accadmin() {
 		cout << "z³e has³o..."<<endl;
 		Sleep(1000);
 		cout << "restarowanie aplikacji";
-		r.start();
+		s.start();
 	}
 	
 	

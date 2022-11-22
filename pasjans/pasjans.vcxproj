@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="continuation.cpp" />
+    <ClCompile Include="gameplay.cpp" />
     <ClCompile Include="pasjans.cpp" />
     <ClCompile Include="start.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="continuation.h" />
+    <ClInclude Include="gameplay.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="start.h" />
   </ItemGroup>

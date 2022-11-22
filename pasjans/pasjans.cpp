@@ -14,9 +14,9 @@ int main()
     setlocale(LC_CTYPE, "Polish");
     roz s;
     cards c;
-    //s.start();
-    c.create_cards();
-    c.table();
+    s.start();
+    //c.create_cards();
+    //c.table();
     
     
     

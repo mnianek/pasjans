@@ -10,7 +10,7 @@ public:
 	
 	struct rozklad karta[7][7];
 	char wyglad[44][130] = { ' '};
-	void create_cards();	//tworzenie talii kart
+	void create_cards();	//tworzenie talii kartc
 	void table();			//storzenie sto³u(bez stosów)
 	void sprawdz();
 };

@@ -1,3 +1,4 @@
+#include "gameplay.h"
 #include "continuation.h"
 #include <iostream>
 #include <cstdlib>
@@ -7,6 +8,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <cstring>		//zamiana string na char
+#include <algorithm>	//sortowanie tabeli
 
 using namespace std;
 
@@ -147,9 +149,29 @@ void cards::create_cards()
 }
 
 void cards::table() {
-	//***KARTY***
-	int number = 1, lpmo = 1;			//lpmo to zmienna wpisujaca liczby puste
+	//******
+	//1)Tworzenie sto³u w formie tablica
+	//2)Zamiana tablicy na znaki 
+	//3)Pokazanie kart wraz z oznaczeniami [czyt. create_cards()]
+	//******
+	srand(time(NULL));
+	int tab[28];
 
+	for (int i = 0; i < 28; i++)
+	{
+		tab[i] = rand() % 28 + 1;
+		for (int j = 0; j < i; j++)
+		{
+			if (tab[j] == tab[i])
+			{
+				tab[i] = rand() % 28 + 1;
+				j = -1; // -1 bo jest to pierwsze powtorzenie
+			}
+			
+		}
+	}
+	//sort(tab, tab + 28);	//sprawdzenie czy dzia³a
+	int number = 0, lpmo = 1;			//lpmo to zmienna wpisujaca liczby puste
 	while (lpmo < 7) {
 		for (int i = lpmo; i < 7; i++)
 		{
@@ -162,11 +184,19 @@ void cards::table() {
 			while (karta[i][j].numKr == -1) {
 				j++;
 			}
-			karta[i][j].numKr = number;	//uzupelnianie pozycji miejsc
+
+			karta[i][j].numKr = tab[number];	//uzupelnianie pozycji miejsc
 			number++;
 		}
 	}
-	,
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 7; j++) {
+			cout << karta[i][j].numKr << " ";
+		}
+		cout << "\n";
+	}
+	//***KARTY***
+	
 	/*for (int i = 0; i < 7; i++) {
 		for (int j = 0; j < 7; j++) {
 			cout << karta[i][j].numKr << " ";
@@ -189,13 +219,13 @@ void cards::table() {
 		int ng = 6;	//zmienna do zmiany komorek w wierszu (tylko gorna czêœæ)									-----
 		int ns = 5; //zmienna do zmiany komorek w wierszu (tylko œrodkowa czêœæ) || 5 zamiast 6 dla wygl¹du	   |     |
 		int nd = 6;	//zmienna do zmiany komorek w wierszu (tylko dolna czêœæ)								   |     |
-		
 		for (int j = 0; j < 7; j++) {
 			if (karta[i][j].numKr > 0) 
 			{
 				
 				//********************************************************************
 				//karta ma 6 wysokosci, 7 szerokoœci
+				ktora_karta = karta[i][j].numKr-1;
 				//**GÓRA**
 				ng += 6;
 				for (int i2 = ng - 5; i2 < ng; i2++)

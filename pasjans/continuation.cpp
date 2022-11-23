@@ -1,4 +1,3 @@
-#include "gameplay.h"
 #include "continuation.h"
 #include <iostream>
 #include <cstdlib>
@@ -16,8 +15,8 @@ struct waist			//elementy generowania karty
 {
 	char color;			// czarny/czerwony
 	char suit;			// pik, trefl, kier, karo
-	char number = '0';		// od 0 do 12 (talia sk³ada siê z 13 kart) A = 14, K=13, 12=D, 11=J, 2-10
-	bool view;			// ods³oniêta (true) lub zakryta (false)
+	char number = '0';		// od 0 do 12 (talia skÅ‚ada siÄ™ z 13 kart) A = 14, K=13, 12=D, 11=J, 2-10
+	bool view;			// odsÅ‚oniÄ™ta (true) lub zakryta (false)
 };
 waist card[52];			//deklaracja tablicy kart
 
@@ -27,7 +26,7 @@ void cards::create_cards()
 {
 	int b = 0, r = 0, ko = 0, kr = 0, pk=0, tl=0;	// zmienne zawarte w tworzeniu kart
 	srand(time(NULL));
-	int lp = 52;			// zmienna mówi¹ca ile razy ma siê powtórzyæ petla (52 na talie + b³êdy)
+	int lp = 52;			// zmienna mÃ³wiÄ…ca ile razy ma siÄ™ powtÃ³rzyÄ‡ petla (52 na talie + bÅ‚Ä™dy)
 	char pik[13] = { '2','3','4','5','6','7','8','9','1','J','Q','K','A' };
 	char karo[13] = { '2','3','4','5','6','7','8','9','1','J','Q','K','A' };
 	char kier[13] = { '2','3','4','5','6','7','8','9','1','J','Q','K','A' };
@@ -150,7 +149,7 @@ void cards::create_cards()
 
 void cards::table() {
 	//******
-	//1)Tworzenie sto³u w formie tablica
+	//1)Tworzenie stoÅ‚u w formie tablica
 	//2)Zamiana tablicy na znaki 
 	//3)Pokazanie kart wraz z oznaczeniami [czyt. create_cards()]
 	//******
@@ -170,7 +169,7 @@ void cards::table() {
 			
 		}
 	}
-	//sort(tab, tab + 28);	//sprawdzenie czy dzia³a
+	//sort(tab, tab + 28);	//sprawdzenie czy dziaÅ‚a
 	int number = 0, lpmo = 1;			//lpmo to zmienna wpisujaca liczby puste
 	while (lpmo < 7) {
 		for (int i = lpmo; i < 7; i++)
@@ -187,22 +186,18 @@ void cards::table() {
 
 			karta[i][j].numKr = tab[number];	//uzupelnianie pozycji miejsc
 			number++;
+			if(karta[i+1][j].numKr==-1||i==6)karta[i][j].view=true;
 		}
 	}
+//	            
+	//***KARTY***
+	
 	for (int i = 0; i < 7; i++) {
 		for (int j = 0; j < 7; j++) {
 			cout << karta[i][j].numKr << " ";
 		}
 		cout << "\n";
 	}
-	//***KARTY***
-	
-	/*for (int i = 0; i < 7; i++) {
-		for (int j = 0; j < 7; j++) {
-			cout << karta[i][j].numKr << " ";
-		}
-		cout << "\n";
-	}*/
 	
 	int ktora_karta = 0; //umieszcza parametry karty w karcie											   
 	int wysokosc = 1;
@@ -216,30 +211,30 @@ void cards::table() {
 	
 	
 	for (int i = 0; i < 7; i++) {
-		int ng = 6;	//zmienna do zmiany komorek w wierszu (tylko gorna czêœæ)									-----
-		int ns = 5; //zmienna do zmiany komorek w wierszu (tylko œrodkowa czêœæ) || 5 zamiast 6 dla wygl¹du	   |     |
-		int nd = 6;	//zmienna do zmiany komorek w wierszu (tylko dolna czêœæ)								   |     |
+		int ng = 6;	//zmienna do zmiany komorek w wierszu (tylko gorna czÄ™Å›Ä‡)									-----
+		int ns = 5; //zmienna do zmiany komorek w wierszu (tylko Å›rodkowa czÄ™Å›Ä‡) || 5 zamiast 6 dla wyglÄ…du	   |     |
+		int nd = 6;	//zmienna do zmiany komorek w wierszu (tylko dolna czÄ™Å›Ä‡)								   |     |
 		for (int j = 0; j < 7; j++) {
-			if (karta[i][j].numKr > 0) 
+			if (karta[i][j].numKr > 0&& karta[i][j].view==true) 
 			{
 				
 				//********************************************************************
-				//karta ma 6 wysokosci, 7 szerokoœci
+				//karta ma 6 wysokosci, 7 szerokoÅ›ci
 				ktora_karta = karta[i][j].numKr-1;
-				//**GÓRA**
-				ng += 6;
+				//**GÃ“RA**
+				ng += 5;
 				for (int i2 = ng - 5; i2 < ng; i2++)
 				{
 					wyglad[(i*6)+1][i2] = '-';
 				}
-				ng += 6;
-				for (int i3 = ng - 5; i3 < ng; i3++)
+				ng += 5;
+				for (int i3 = ng - 4; i3 < ng; i3++)
 				{
 					wyglad[(i*6)+1][i3] = ' ';
 				}
-				ng += 6;
+				
 
-				//**ŒRODEK**
+				//**ÅšRODEK**
 				wysokosc = (i * 6) + 6;
 				for (int WysokoscPojKarty = (i * 6) + 2; WysokoscPojKarty < wysokosc; WysokoscPojKarty++) {
 					wyglad[WysokoscPojKarty][ns] = '|';
@@ -251,12 +246,12 @@ void cards::table() {
 						if (i2 == (ns + 3) && wysokosc - WysokoscPojKarty == 3) wyglad[WysokoscPojKarty][i2] = card[ktora_karta].suit; //pokazuje suit karty
 						if (card[ktora_karta].number == '1')
 						{
-							if (i2 == (ns + 3) && wysokosc - WysokoscPojKarty == 2) wyglad[WysokoscPojKarty][i2] = '0'; //pokazuje wartoœæ karty
-							if (i2 == (ns + 2) && wysokosc - WysokoscPojKarty == 2) wyglad[WysokoscPojKarty][i2] = '1'; //pokazuje wartoœæ karty
+							if (i2 == (ns + 3) && wysokosc - WysokoscPojKarty == 2) wyglad[WysokoscPojKarty][i2] = '0'; //pokazuje wartoÅ›Ä‡ karty
+							if (i2 == (ns + 2) && wysokosc - WysokoscPojKarty == 2) wyglad[WysokoscPojKarty][i2] = '1'; //pokazuje wartoÅ›Ä‡ karty
 						}
 						else
 						{
-							if (i2 == (ns + 3) && wysokosc - WysokoscPojKarty == 2) wyglad[WysokoscPojKarty][i2] = card[ktora_karta].number; //pokazuje wartoœæ karty
+							if (i2 == (ns + 3) && wysokosc - WysokoscPojKarty == 2) wyglad[WysokoscPojKarty][i2] = card[ktora_karta].number; //pokazuje wartoÅ›Ä‡ karty
 						}
 						
 					}
@@ -269,36 +264,89 @@ void cards::table() {
 					}
 				}
 				ns += 10;
-				/**DÓ£**/
-				nd += 6;
+				/**DÃ“Å**/
+				nd += 5;
 				for (int i2 = nd - 5; i2 < nd; i2++)
 				{
 					wyglad[(i * 6) + 6][i2] = '-';
 				}
-				nd += 6;
-				for (int i3 = nd - 5; i3 < nd; i3++)
+				nd += 5;
+				for (int i3 = nd - 4; i3 < nd; i3++)
 				{
 					wyglad[(i * 6) + 6][i3] = ' ';
 				}
-				nd += 6;
+				
+				ktora_karta++;
+				//********************************************************************
+			}
+			else if (karta[i][j].numKr > 0 && karta[i][j].view==false) 
+			{
+				
+				//********************************************************************
+				//karta ma 6 wysokosci, 7 szerokoÅ›ci
+				ktora_karta = karta[i][j].numKr-1;
+				//**GÃ“RA**
+				ng += 5;
+				for (int i2 = ng - 5; i2 < ng; i2++)
+				{
+					wyglad[(i*6)+1][i2] = '-';
+				}
+				ng += 5;
+				for (int i3 = ng - 4; i3 < ng; i3++)
+				{
+					wyglad[(i*6)+1][i3] = ' ';
+				}
+				
+
+				//**ÅšRODEK**
+				wysokosc = (i * 6) + 6;
+				for (int WysokoscPojKarty = (i * 6) + 2; WysokoscPojKarty < wysokosc; WysokoscPojKarty++) {
+					wyglad[WysokoscPojKarty][ns] = '|';
+
+					for (int i2 = ns + 1; i2 < ns + 6; i2++)
+					{
+						wyglad[WysokoscPojKarty][i2] = ' ';
+						
+					}
+					
+					wyglad[WysokoscPojKarty][ns + 6] = '|';
+
+					for (int i3 = ns + 7; i3 < ns + 13; i3++)
+					{
+						wyglad[WysokoscPojKarty][i3] = ' ';
+					}
+				}
+				ns += 10;
+				/**DÃ“Å**/
+				nd += 5;
+				for (int i2 = nd - 5; i2 < nd; i2++)
+				{
+					wyglad[(i * 6) + 6][i2] = '-';
+				}
+				nd += 5;
+				for (int i3 = nd - 4; i3 < nd; i3++)
+				{
+					wyglad[(i * 6) + 6][i3] = ' ';
+				}
+				
 				ktora_karta++;
 				//********************************************************************
 			}
 			else // ***jesli karty nie ma***
 			{
-				ng += 6;
+				//**GORA**
 				for (int i2 = ng - 5; i2 < ng; i2++)
 				{
 					wyglad[(i * 6) + 1][i2] = ' ';
 				}
-				ng += 6;
+				ng += 5;
 				for (int i3 = ng - 5; i3 < ng; i3++)
 				{
 					wyglad[(i * 6) + 1][i3] = ' ';
 				}
-				ng += 6;
+				ng += 5;
 
-				//**ŒRODEK**
+				//**ÅšRODEK**
 				wysokosc = (i * 6) + 6;
 				for (int WysokoscPojKarty = (i * 6) + 2; WysokoscPojKarty < wysokosc; WysokoscPojKarty++) {
 					wyglad[WysokoscPojKarty][ns] = ' ';
@@ -318,18 +366,18 @@ void cards::table() {
 					}
 				}
 				ns += 10;
-				/**DÓ£**/
-				nd += 6;
+				/**DÃ“Å**/
+				
 				for (int i2 = nd - 5; i2 < nd; i2++)
 				{
 					wyglad[(i * 6) + 6][i2] = ' ';
 				}
-				nd += 6;
+				nd += 5;
 				for (int i3 = nd - 5; i3 < nd; i3++)
 				{
 					wyglad[(i * 6) + 6][i3] = ' ';
 				}
-				nd += 6;
+				nd += 5;
 			}
 			
 		}
@@ -339,7 +387,7 @@ void cards::table() {
 	for(int i=5;i<80;i++)wyglad[43][i] = '-';
 	
 
-	//***Pokazanie sto³u kart***
+	//***Pokazanie stoÅ‚u kart***
 	for (int i = 0; i < 44; i++) {
 		for (int j = 0; j < 130; j++)
 		{
@@ -360,5 +408,3 @@ void cards::sprawdz() {
 		cout << "\n";
 	}
 }
-
-
